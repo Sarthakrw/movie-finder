@@ -1,25 +1,13 @@
-import logo from './logo.svg';
-import './App.css';
+import { useEffect } from "react";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+// OmdB api key : 1c947b0b
+const API_URL = 'http://www.omdbapi.com?apikey=1c947b0b';
+// const API_URL = 'http://www.omdbapi.com/?i=tt3896198&apikey=1c947b0b'
+
+const App = () => {     //Main functional component takes props as input and returns react elements
+    return (
+        <h1>Hello !</h1>
+    );
 }
 
-export default App;
+export default App;     //App can be exported to other module where it can be used
