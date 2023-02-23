@@ -1,4 +1,6 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+
+import MovieCard from "./MovieCard";
 
 import './App.css';
 import SearchIcon from './search.svg';
@@ -7,25 +9,21 @@ import SearchIcon from './search.svg';
 const API_URL = 'http://www.omdbapi.com?apikey=1c947b0b';
 // const API_URL = 'http://www.omdbapi.com/?i=tt3896198&apikey=1c947b0b'
 
-const movie1 = {
-    "Title": "Neon Genesis Evangelion: The End of Evangelion",
-    "Year": "1997",
-    "imdbID": "tt0169858",
-    "Type": "movie",
-    "Poster": "https://m.media-amazon.com/images/M/MV5BMjU0MzQwMmMtMWU3OS00MDc0LWIzOTItZmE1MjZlYmExMGJiXkEyXkFqcGdeQXVyNzI1NzMxNzM@._V1_SX300.jpg"
-}
 
 const App = () => {     //Main functional component takes props as input and returns react elements
     
+    const [movies, setMovies] = useState([]);
+
+    const [searchTerm, setSearchTerm] = useState('');
+
     const searchMovies = async (title) => {
         const response = await fetch(`${API_URL}&s=${title}`);
         const data = await response.json();
 
-        console.log(data.Search);
+        setMovies(data.Search);
     }
-    console.log('hi');
     useEffect(() => {   
-        searchMovies('The End of Evangelion');
+        searchMovies();
     }, []);             //first argument in useEffect() is the side-effect function to be run, second argument is the array of dependencies aka the condition for the function to be re-ran
     
     return (
@@ -35,36 +33,38 @@ const App = () => {     //Main functional component takes props as input and ret
             <div className="search">
                 <input
                     placeholder="Search here"
-
-                    onChange = {() => {}}
+                    value={searchTerm}
+                    onChange = {(event) => setSearchTerm(event.target.value)}
+                    onKeyDown = {(event) => {
+                        if (event.key === 'Enter') {
+                            searchMovies(searchTerm)
+                        }
+                    }}
                 
                 />
                 <img
                     src={SearchIcon}
                     alt="search"
-                    onClick={() => {}}
+                    onClick={() => searchMovies(searchTerm)}
                 />
             </div>
-            <div className="container">
-                        <div className="movie">
-                            <div>
-                                <p>{movie1.Year}</p>
-                            </div>
 
-                            <div>
-                                <img
-                                    src={movie1.Poster !== 'N/A' ? movie1.Poster : "https://via.placeholder.com/400"}
-                                    alt={movie1.Title}
-                                />
-                            </div>
-
-                            <div>
-                                <span>{movie1.Type}</span>
-                                <h3>{movie1.Title}</h3>
-                            </div>
-
+            {
+                movies?.length > 0
+                    ? (
+                        <div className="container">
+                            {movies.map((movie) => (
+                                <MovieCard movie={movie} />
+                            ))}
                         </div>
-                    </div>
+                    ) : (
+                        <div className="empty">
+                            <h2>No Movies Found</h2>
+                        </div>
+                    )
+            }
+          
+            
         </div>
         
     );
