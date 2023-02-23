@@ -5,10 +5,7 @@ import MovieCard from "./MovieCard";
 import './App.css';
 import SearchIcon from './search.svg';
 
-// OmdB api key : 1c947b0b
-const API_URL = 'http://www.omdbapi.com?apikey=1c947b0b';
-// const API_URL = 'http://www.omdbapi.com/?i=tt3896198&apikey=1c947b0b'
-
+import { API_URL } from "./api";
 
 const App = () => {     //Main functional component takes props as input and returns react elements
     
@@ -23,7 +20,7 @@ const App = () => {     //Main functional component takes props as input and ret
         setMovies(data.Search);
     }
     useEffect(() => {   
-        searchMovies();
+        searchMovies('');
     }, []);             //first argument in useEffect() is the side-effect function to be run, second argument is the array of dependencies aka the condition for the function to be re-ran
     
     return (
@@ -63,7 +60,6 @@ const App = () => {     //Main functional component takes props as input and ret
                         </div>
                     )
             }
-          
             
         </div>
         
