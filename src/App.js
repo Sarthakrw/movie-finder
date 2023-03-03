@@ -5,8 +5,6 @@ import MovieCard from "./MovieCard";
 import './App.css';
 import SearchIcon from './search.svg';
 
-import { API_URL } from "./api";
-
 const App = () => {     //Main functional component takes props as input and returns react elements
     
     const [movies, setMovies] = useState([]);
@@ -14,7 +12,7 @@ const App = () => {     //Main functional component takes props as input and ret
     const [searchTerm, setSearchTerm] = useState('');
 
     const searchMovies = async (title) => {
-        const response = await fetch(`${API_URL}&s=${title}`);
+        const response = await fetch(`${process.env.API_URL}&s=${title}`);
         const data = await response.json();
 
         setMovies(data.Search);
