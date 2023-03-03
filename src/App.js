@@ -25,7 +25,7 @@ const App = () => {     //Main functional component takes props as input and ret
     
     return (
         <div className="app">
-            <h1>Movie App</h1>
+            <h1>Movie Finder</h1>
 
             <div className="search">
                 <input
