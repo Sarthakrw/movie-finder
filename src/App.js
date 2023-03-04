@@ -12,7 +12,7 @@ const App = () => {     //Main functional component takes props as input and ret
     const [searchTerm, setSearchTerm] = useState('');
 
     const searchMovies = async (title) => {
-        const response = await fetch(`${process.env.API_URL}&s=${title}`);
+        const response = await fetch(`${process.env.REACT_APP_API_URL}&s=${title}`);
         const data = await response.json();
 
         setMovies(data.Search);
